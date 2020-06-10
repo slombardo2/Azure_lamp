@@ -1,6 +1,6 @@
 {
-   "name": "LAMP stack deployment on Microsoft Azure",
-   "description": "LAMP - A fully-integrated environment for full stack PHP web development.",
+   "name": "Ubuntu server deployment on Microsoft Azure - Sean",
+   "description": "A single Ubuntu server deployment",
    "version": "1.0",
    "type": "prebuilt",
    "manifest": {
@@ -20,8 +20,8 @@
      }
    },
    "metadata": {
-     "displayName": "LAMP stack deployment on Microsoft Azure",
-     "longDescription": "Deploys a LAMP Stack (Linux, Apache, Microsoft SQL, PHP) in Microsoft Azure providing a complete development environment. This deployment also deploys a simple sample application to validate the stack is operational.",
+     "displayName": "Ubuntu server deployment on Microsoft Azure - Sean",
+     "longDescription": "Deploys a single Ubuntu server.",
      "bullets": [
        {
          "title": "Clouds",
