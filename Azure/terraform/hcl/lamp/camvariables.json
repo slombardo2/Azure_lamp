@@ -173,20 +173,6 @@
       "label": "Web VM Private IP",
       "secured": false,
       "hidden": false
-    },      
-    {
-      "name": "lamp_sql_service_fqdn",
-      "type": "string",
-      "label": "SQL Service FQDN",
-      "secured": false,
-      "hidden": false
-    },  
-    {
-      "name": "application_url",
-      "type": "url",
-      "label": "Sample Application URL",
-      "secured": false,
-      "hidden": false
-    }  
+    }
   ]
 }
