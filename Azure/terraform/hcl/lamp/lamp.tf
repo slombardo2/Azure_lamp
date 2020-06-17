@@ -48,7 +48,7 @@ variable "vm_size" {
 }
   
 variable "count" {
-  default = "0"
+  default = "1"
 }
   
 variable "attach_extra_disk" {
