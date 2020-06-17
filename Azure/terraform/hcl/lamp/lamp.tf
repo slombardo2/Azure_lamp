@@ -41,6 +41,11 @@ variable "name_prefix" {
   description = "Prefix of names for Azure resources"
   default     = "meanstack"
 }
+  
+variable "vm_size" {
+  description = "The size of the VM to create."
+  default = "Standard_A2"
+}
 
 variable "admin_user" {
   description = "Name of an administrative user to be created in virtual machine and SQL service in this deployment"
@@ -168,7 +173,7 @@ resource "azurerm_virtual_machine" "web" {
   location              = "${var.azure_region}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.web.id}"]
-  vm_size               = "Standard_A2"
+  vm_size               = "${var.vm_size}"
   tags                  = "${module.camtags.tagsmap}"
 
   storage_image_reference {
@@ -207,7 +212,7 @@ resource "azurerm_virtual_machine" "web-alternative" {
   location              = "${var.azure_region}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.web.id}"]
-  vm_size               = "Standard_A2"
+  vm_size               = "${var.vm_size}"
   tags                  = "${module.camtags.tagsmap}"
 
   storage_image_reference {
