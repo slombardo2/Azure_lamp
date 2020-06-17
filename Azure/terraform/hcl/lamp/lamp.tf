@@ -47,6 +47,10 @@ variable "vm_size" {
   default = "Standard_A2"
 }
   
+variable "count" {
+  default = "0"
+}
+  
 variable "attach_extra_disk" {
   default = "false"
   description = "Attach an additional disk to the instance."
