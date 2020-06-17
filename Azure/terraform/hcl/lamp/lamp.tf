@@ -39,12 +39,17 @@ variable "azure_region" {
 
 variable "name_prefix" {
   description = "Prefix of names for Azure resources"
-  default     = "meanstack"
+  default     = "lamp"
 }
   
 variable "vm_size" {
   description = "The size of the VM to create."
   default = "Standard_A2"
+}
+  
+variable "attach_extra_disk" {
+  default = "false"
+  description = "Attach an additional disk to the instance."
 }
 
 variable "admin_user" {
@@ -188,6 +193,15 @@ resource "azurerm_virtual_machine" "web" {
     vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-os-disk1.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
+  }
+  
+  storage_data_disk {
+    count         = "${var.attach_extra_disk ? var.count: 0}"
+    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
+    diskSizeGB    = "100"
+    lun           = "0"
+    create_option = "Empty"
   }
 
   os_profile {
