@@ -1,10 +1,4 @@
 {
-  "input_datatypes": [
-    {
-      "name": "bastionhost",
-      "label": "Bastion Data"
-    }    
-  ],
   "template_input_params": [
     {
         "name": "azure_region",
