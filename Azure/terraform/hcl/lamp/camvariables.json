@@ -86,6 +86,27 @@
       "immutable": false
     },
     {
+      "name": "attach_extra_disk",
+      "description": "Would you like to attach an additional disk?",
+      "options": [
+        {
+          "value": "false",
+          "label": "No, thanks",
+          "default": true
+        },
+        {
+          "value": "true",
+          "label": "Yes - 100 GB"
+        }
+      ],
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Disk",
+      "hidden": false,
+      "immutable": false
+    },
+    {
         "name": "name_prefix",
         "label": "Prefix of Resource Names",
         "description": "Prefix of names for Azure resources; The name prefix must be 1-52 alphanumeric characters and dash",
