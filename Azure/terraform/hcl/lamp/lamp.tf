@@ -200,10 +200,10 @@ resource "azurerm_virtual_machine" "web" {
   }
   
   storage_data_disk {
-    count         = "${var.attach_extra_disk != "false"}"
+    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
     name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
     vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
-    diskSizeGB    = "100"
+    disk_size_gb  = "100"
     lun           = "0"
     create_option = "Empty"
   }
