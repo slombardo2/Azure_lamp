@@ -1,6 +1,6 @@
 {
-   "name": "Ubuntu server deployment on Microsoft Azure - Sean",
-   "description": "A single Ubuntu server deployment",
+   "name": "Ubuntu server deployment on Microsoft Azure",
+   "description": "This will deploy a single Ubuntu server",
    "version": "1.0",
    "type": "prebuilt",
    "manifest": {
@@ -20,8 +20,8 @@
      }
    },
    "metadata": {
-     "displayName": "Ubuntu server deployment on Microsoft Azure - Sean",
-     "longDescription": "Deploys a single Ubuntu server.",
+     "displayName": "Ubuntu server deployment on Microsoft Azure",
+     "longDescription": "This will deploy a single Ubuntu server",
      "bullets": [
        {
          "title": "Clouds",
@@ -33,19 +33,11 @@
        },
        {
          "title": "Topology",
-         "description": "Microsoft Azure: <ul class=\"unordered-list-style\"><li>1 virtual machine - Apache and PHP;</li><li>1 Service - Microsoft SQL Server</li></ul>"
-       },
-       {
-         "title": "Software deployed",
-         "description": "<ol class=\"list-numbering\"><li>Apache: a secure, efficient and extensible open-source HTTP server</li><li>SQL Server: a relational database management system developed by Microsoft</li><li>PHP: a server-side scripting language designed for web development</li></ol>"
+         "description": "Microsoft Azure: <ul class=\"unordered-list-style\"><li>1 virtual machine;</li></ul>"
        },
        {
          "title": "Default virtual machine settings",
-         "description": "<ul><li>Microsoft Azure:<ul style=\"margin-left: 20px;\"><li>Flavor:<ul style=\"margin-left: 20px;\"><li>SQL Database: S0><ul style=\"margin-left: 20px;\"><li>DTU - 10</li><li>Storage - 250GB</li></ul</li><li>Front end: Standard_A2<ul style=\"margin-left: 20px;\"><li>Cores - 2</li><li>Memory - 3.5GB</li><li>Storage - 60GB</li></ul></li></ul></li><li>Network:<ul style=\"margin-left: 20px;\"><li>SQL Database:<ul style=\"margin-left: 20px;\"><li>Private IP - Azure managed</li><li>Public IP - Computed and output FQDN</li></ul></li><li>Front end:<ul style=\"margin-left: 20px;\"><li>Private IP - In 10.0.1.0/24</li><li>Public IP - Computed</li></ul></li></ul></li><li>Firewall:<ul style=\"margin-left: 20px;\"><li>SQL Database:<ul style=\"margin-left: 20px;\"><li>Ingress - Allows TCP 1433 only from Front-end VM</li><li>Egress - Azure managed</li></ul></li><li>Front end:<ul style=\"margin-left: 20px;\"><li>Ingress - Allows SSH and HTTP from all sources</li><li>Egress - All</li></ul></li></ul></li></ul></li></ul>"
-       },
-       {
-         "title": "Usage and special notes",
-         "description": "<ol class=\"list-numbering\"><li>Downloads latest releases of software.</li><li>To access the application and virtual machine, please see the instructions in the output log.</li><li>To access the SQL database service, please log into the front-end VM and then use SQL client for operations.</li><li>More details of software can be found in <a href=\"https://httpd.apache.org/\">https://httpd.apache.org/</a>, <a href=\"https://azure.microsoft.com/en-us/services/sql-database/\">https://azure.microsoft.com/en-us/services/sql-database/</a> and <a href=\"https://secure.php.net/\">https://secure.php.net/</a>.</li></ol>"
+         "description": "<ul><li>Microsoft Azure:<ul style=\"margin-left: 20px;\"><li>Flavor:<ul style=\"margin-left: 20px;\"><li>Storage - 250GB</li></ul</li><li>VM Size: Standard_A2<ul style=\"margin-left: 20px;\"><li>Cores - 2</li><li>Memory - 3.5GB</li><li>Storage - 60GB</li></ul></li></ul></li><li>Network:<ul style=\"margin-left: 20px;\"></li><li>VM:<ul style=\"margin-left: 20px;\"><li>Private IP - In 10.0.1.0/24</li><li>Public IP - Computed</li></ul></li></ul></li></li></ul></li></ul></li></ul>"
        }
      ]
    }
