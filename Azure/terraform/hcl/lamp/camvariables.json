@@ -52,6 +52,39 @@
         ]
     },
     {
+      "name": "vm_size",
+      "description": "The size of the VM to create.",
+      "options": [
+        {
+          "value": "Standard_A2",
+          "label": "Standard_A2 (2 vCPU, 3.5 Memory(GB))",
+          "default": true
+        },
+        {
+          "value": "Standard_A3",
+          "label": "Standard_A3 (4 vCPU, 7 Memory(GB))"
+        },
+        {
+          "value": "Standard_A4",
+          "label": "Standard_A4 (8 vCPU, 14 Memory(GB))"
+        },
+        {
+          "value": "Standard_A5",
+          "label": "Standard_A5 (2 vCPU, 14 Memory(GB))"
+        },
+        {
+          "value": "Standard_A6",
+          "label": "Standard_A6 (4 vCPU, 28 Memory(GB))"
+        }
+      ],
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "VM Size",
+      "hidden": false,
+      "immutable": false
+    },
+    {
         "name": "name_prefix",
         "label": "Prefix of Resource Names",
         "description": "Prefix of names for Azure resources; The name prefix must be 1-52 alphanumeric characters and dash",
@@ -97,66 +130,6 @@
         "secured": false,
         "type": "string",
         "regex": "^None$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3}( [^@]+@[^@]+| [^@]+){0,1}$"
-    },
-    {
-      "name": "bastion_host",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion host for ssh proxy",
-      "default": "${bastionhost.bastion_host}",
-      "label": "Bastion host",
-      "secured": false,
-      "required": false
-    },
-    {
-      "name": "bastion_port",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion port for ssh proxy",
-      "default": "${bastionhost.bastion_port}",
-      "label": "Bastion port",
-      "secured": false,
-      "required": false
-    },
-    {
-      "name": "bastion_user",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion user for ssh proxy",
-      "default": "${bastionhost.bastion_user}",
-      "label": "Bastion user",
-      "secured": false,
-      "required": false
-    },
-    {
-      "name": "bastion_private_key",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion private key for ssh proxy",
-      "default": "${bastionhost.bastion_private_key}",
-      "label": "Bastion private key",
-      "secured": true,
-      "required": false
-    },
-    {
-      "name": "bastion_password",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion user password for ssh proxy",
-      "default": "${bastionhost.bastion_password}",
-      "label": "Bastion user password",
-      "secured": true,
-      "required": false
-    },
-    {
-      "name": "bastion_host_key",
-      "type": "string",
-      "hidden": true,
-      "description": "Bastion host public key for ssh proxy",
-      "default": "${bastionhost.bastion_host_key}",
-      "label": "Bastion host key",
-      "secured": false,
-      "required": false
     }
   ],
   "template_output_params": [
