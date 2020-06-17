@@ -199,7 +199,7 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
-  storage_data_disk {
+  storage_data_disks {
 #    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
     name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
     vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
@@ -245,6 +245,15 @@ resource "azurerm_virtual_machine" "web-alternative" {
     vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-os-disk1.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
+  }
+  
+  storage_data_disks {
+#    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
+    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
+    disk_size_gb  = "100"
+    lun           = "0"
+    create_option = "Empty"
   }
 
   os_profile {
