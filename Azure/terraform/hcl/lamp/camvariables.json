@@ -87,7 +87,7 @@
     },
     {
       "name": "attach_extra_disk",
-      "description": "Would you like to attach an additional disk?",
+      "description": "Attach an additional disk to the instance.",
       "options": [
         {
           "value": "false",
