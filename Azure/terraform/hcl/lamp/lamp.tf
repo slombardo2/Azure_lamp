@@ -238,7 +238,7 @@ resource "azurerm_managed_disk" "external" {
 resource "azurerm_virtual_machine_data_disk_attachment" "external" {
   count              = "${var.count}"
   managed_disk_id    = "${azurerm_managed_disk.external.*.id[count.index]}"
-  virtual_machine_id = ["${azurerm_virtual_machine.web.name}"]
+#  virtual_machine_id = "${azurerm_virtual_machine.web.name}"
   lun                = "0"
   caching            = "ReadWrite"
 }
