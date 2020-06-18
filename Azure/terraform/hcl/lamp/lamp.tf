@@ -199,15 +199,15 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
-  storage_data_disk {
+#  storage_data_disk {
 #    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
-    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
-    disk_size_gb  = "32"
-    lun           = "0"
-    caching       = "ReadWrite"
-    create_option = "Empty"
-  }
+#    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+#    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
+#    disk_size_gb  = "32"
+#    lun           = "0"
+#    caching       = "ReadWrite"
+#    create_option = "Empty"
+#  }
 
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
@@ -223,6 +223,24 @@ resource "azurerm_virtual_machine" "web" {
       key_data = "${var.user_public_key}"
     }
   }
+}
+  
+resource "azurerm_managed_disk" "external" {
+  count                = "${var.count}"
+  name                 = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+  location             = "${var.azure_region}"
+  resource_group_name  = "${azurerm_resource_group.default.name}"
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "10"
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "external" {
+  count              = "${var.count}"
+  managed_disk_id    = "${azurerm_managed_disk.external.*.id[count.index]}"
+  virtual_machine_id = "${azurerm_virtual_machine.example.id}"
+  lun                = "0"
+  caching            = "ReadWrite"
 }
 
 resource "azurerm_virtual_machine" "web-alternative" {
@@ -248,15 +266,15 @@ resource "azurerm_virtual_machine" "web-alternative" {
     create_option = "FromImage"
   }
   
-  storage_data_disk {
+#  storage_data_disk {
 #    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
-    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
-    disk_size_gb  = "32"
-    lun           = "0"
-    caching       = "ReadWrite"
-    create_option = "Empty"
-  }
+#    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+#    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
+#    disk_size_gb  = "32"
+#    lun           = "0"
+#    caching       = "ReadWrite"
+#    create_option = "Empty"
+#  }
 
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
