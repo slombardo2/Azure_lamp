@@ -287,7 +287,7 @@ resource "azurerm_managed_disk" "external" {
   resource_group_name  = "${azurerm_resource_group.default.name}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
-  disk_size_gb         = "1023"
+  disk_size_gb         = "10"
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "external" {
