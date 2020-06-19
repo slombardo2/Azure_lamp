@@ -231,6 +231,40 @@ resource "azurerm_virtual_machine" "web" {
   }
 }
   
+resource "azurerm_virtual_machine" "web-alternative" {
+  count                 = "${var.user_public_key == "None" ? 1 : 0}"
+  name                  = "${var.name_prefix}-${random_id.default.hex}-web-vm"
+  location              = "${var.azure_region}"
+  resource_group_name   = "${azurerm_resource_group.default.name}"
+  network_interface_ids = ["${azurerm_network_interface.web.id}"]
+  vm_size               = "${var.vm_size}"
+  tags                  = "${module.camtags.tagsmap}"
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+
+  storage_os_disk {
+    name          = "${var.name_prefix}-${random_id.default.hex}-web-os-disk1"
+    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-os-disk1.vhd"
+    caching       = "ReadWrite"
+    create_option = "FromImage"
+  }
+  
+  os_profile {
+    computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
+    admin_username = "${var.admin_user}"
+    admin_password = "${var.admin_user_password}"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+}
+  
 #resource "azurerm_managed_disk" "external" {
 #  name                 = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
 #  location             = "${var.azure_region}"
