@@ -199,6 +199,22 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
+  storage_data_disk {
+   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+   managed_disk_type = "Standard_LRS"
+   create_option     = "Empty"
+   lun               = 0
+   disk_size_gb      = "1023"
+ }
+
+ storage_data_disk {
+   name            = element(azurerm_managed_disk.external.*.name)
+   managed_disk_id = element(azurerm_managed_disk.external.*.id)
+   create_option   = "Attach"
+   lun             = 1
+   disk_size_gb    = element(azurerm_managed_disk.external.*.disk_size_gb)
+ }
+
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
     admin_username = "${var.admin_user}"
@@ -221,15 +237,15 @@ resource "azurerm_managed_disk" "external" {
   resource_group_name  = "${azurerm_resource_group.default.name}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
-  disk_size_gb         = "10"
+  disk_size_gb         = "1023"
 }
 
-resource "azurerm_virtual_machine_data_disk_attachment" "external" {
-  managed_disk_id    = "${azurerm_managed_disk.external.id}"
-  virtual_machine_id = "${azurerm_virtual_machine.web.id}"
-  lun                = "0"
-  caching            = "ReadWrite"
-}
+#resource "azurerm_virtual_machine_data_disk_attachment" "external" {
+#  managed_disk_id    = "${azurerm_managed_disk.external.id}"
+#  virtual_machine_id = "${azurerm_virtual_machine.web.id}"
+#  lun                = "0"
+#  caching            = "ReadWrite"
+#}
 
 #########################################################
 # Output
