@@ -199,16 +199,6 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
-#  storage_data_disk {
-#    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
-#    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-#    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
-#    disk_size_gb  = "32"
-#    lun           = "0"
-#    caching       = "ReadWrite"
-#    create_option = "Empty"
-#  }
-
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
     admin_username = "${var.admin_user}"
@@ -237,66 +227,6 @@ resource "azurerm_managed_disk" "external" {
 resource "azurerm_virtual_machine_data_disk_attachment" "external" {
   managed_disk_id    = "${azurerm_managed_disk.external.id}"
   virtual_machine_id = "${azurerm_virtual_machine.web.id}"
-  lun                = "0"
-  caching            = "ReadWrite"
-}
-
-resource "azurerm_virtual_machine" "web-alternative" {
-  count                 = "${var.user_public_key == "None" ? 1 : 0}"
-  name                  = "${var.name_prefix}-${random_id.default.hex}-web-vm"
-  location              = "${var.azure_region}"
-  resource_group_name   = "${azurerm_resource_group.default.name}"
-  network_interface_ids = ["${azurerm_network_interface.web.id}"]
-  vm_size               = "${var.vm_size}"
-  tags                  = "${module.camtags.tagsmap}"
-
-  storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
-  }
-
-  storage_os_disk {
-    name          = "${var.name_prefix}-${random_id.default.hex}-web-os-disk1"
-    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-os-disk1.vhd"
-    caching       = "ReadWrite"
-    create_option = "FromImage"
-  }
-  
-#  storage_data_disk {
-#    count         = "${var.attach_extra_disk != "false" ? 1 : 0}"
-#    name          = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-#    vhd_uri       = "${azurerm_storage_account.default.primary_blob_endpoint}${azurerm_storage_container.default.name}/${var.name_prefix}-${random_id.default.hex}-web-data-disk1.vhd"
-#    disk_size_gb  = "32"
-#    lun           = "0"
-#    caching       = "ReadWrite"
-#    create_option = "Empty"
-#  }
-
-  os_profile {
-    computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
-    admin_username = "${var.admin_user}"
-    admin_password = "${var.admin_user_password}"
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = false
-  }
-}
-  
-resource "azurerm_managed_disk" "external" {
-  name                 = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-  location             = "${var.azure_region}"
-  resource_group_name  = "${azurerm_resource_group.default.name}"
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = "10"
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "external" {
-  managed_disk_id    = "${azurerm_managed_disk.external.id}"
-  virtual_machine_id = "${azurerm_virtual_machine.web-alternative.id}"
   lun                = "0"
   caching            = "ReadWrite"
 }
