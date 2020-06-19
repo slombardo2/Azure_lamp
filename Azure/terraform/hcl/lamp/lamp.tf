@@ -39,7 +39,7 @@ variable "azure_region" {
 
 variable "name_prefix" {
   description = "Prefix of names for Azure resources"
-  default     = "lamp"
+  default     = "azure"
 }
   
 variable "vm_size" {
@@ -237,6 +237,7 @@ resource "azurerm_managed_disk" "external" {
 
 resource "azurerm_virtual_machine_data_disk_attachment" "external" {
   count              = "${var.count}"
+  resource_group_name  = "${azurerm_resource_group.default.name}"
   managed_disk_id    = "${azurerm_managed_disk.external.*.id[count.index]}"
   virtual_machine_id = "${azurerm_virtual_machine.web.id}"
   lun                = "0"
