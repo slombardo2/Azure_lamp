@@ -257,7 +257,7 @@ resource "azurerm_virtual_machine" "web-alternative" {
   storage_data_disk {
    name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
    managed_disk_type = "Standard_LRS"
-   create_option     = "Attach"
+   create_option     = "Empty"
    lun               = 0
    disk_size_gb      = "1023"
  }
