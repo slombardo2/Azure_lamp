@@ -110,7 +110,7 @@
         "name": "name_prefix",
         "label": "Prefix of Resource Names",
         "description": "Prefix of names for Azure resources; The name prefix must be 1-52 alphanumeric characters and dash",
-        "default": "lamp",
+        "default": "azure",
         "hidden": false,
         "immutable": false,
         "required": true,
