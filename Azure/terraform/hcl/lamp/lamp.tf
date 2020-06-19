@@ -199,21 +199,21 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
-  storage_data_disk {
-   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-   managed_disk_type = "Standard_LRS"
-   create_option     = "Empty"
-   lun               = 0
-   disk_size_gb      = "1023"
- }
+#  storage_data_disk {
+#   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+#   managed_disk_type = "Standard_LRS"
+#   create_option     = "Empty"
+#   lun               = 0
+#   disk_size_gb      = "1023"
+# }
 
- storage_data_disk {
-   name            = "${azurerm_managed_disk.external.*.name}"
-   managed_disk_id = "${azurerm_managed_disk.external.*.id}"
-   create_option   = "Attach"
-   lun             = 1
+# storage_data_disk {
+#   name            = "${azurerm_managed_disk.external.*.name}"
+#   managed_disk_id = "${azurerm_managed_disk.external.*.id}"
+#   create_option   = "Attach"
+#   lun             = 1
 #   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
- }
+# }
 
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
@@ -254,13 +254,13 @@ resource "azurerm_virtual_machine" "web-alternative" {
     create_option = "FromImage"
   }
   
-  storage_data_disk {
-   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-   managed_disk_type = "Standard_LRS"
-   create_option     = "Empty"
-   lun               = 0
-   disk_size_gb      = "1023"
- }
+#  storage_data_disk {
+#   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
+#   managed_disk_type = "Standard_LRS"
+#   create_option     = "Empty"
+#   lun               = 0
+#   disk_size_gb      = "1023"
+# }
 
 # storage_data_disk {
 #   name            = azurerm_managed_disk.external.*.name
@@ -287,6 +287,7 @@ resource "azurerm_managed_disk" "external" {
   resource_group_name  = "${azurerm_resource_group.default.name}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
+  lun                  = 1
   disk_size_gb         = "1023"
 }
 
