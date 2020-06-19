@@ -257,18 +257,18 @@ resource "azurerm_virtual_machine" "web-alternative" {
   storage_data_disk {
    name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
    managed_disk_type = "Standard_LRS"
-   create_option     = "Empty"
+   create_option     = "Attach"
    lun               = 0
    disk_size_gb      = "1023"
  }
 
- storage_data_disk {
-   name            = azurerm_managed_disk.external.*.name
-   managed_disk_id = azurerm_managed_disk.external.*.id
-   create_option   = "Attach"
-   lun             = 1
+# storage_data_disk {
+#   name            = azurerm_managed_disk.external.*.name
+#   managed_disk_id = azurerm_managed_disk.external.*.id
+#   create_option   = "Attach"
+#   lun             = 1
 #   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
- }
+# }
   
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
