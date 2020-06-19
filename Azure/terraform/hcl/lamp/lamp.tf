@@ -263,8 +263,8 @@ resource "azurerm_virtual_machine" "web-alternative" {
  }
 
  storage_data_disk {
-   name            = "${azurerm_managed_disk.external.*.name}"
-   managed_disk_id = "${azurerm_managed_disk.external.*.id}"
+   name            = azurerm_managed_disk.external.*.name
+   managed_disk_id = azurerm_managed_disk.external.*.id
    create_option   = "Attach"
    lun             = 1
 #   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
