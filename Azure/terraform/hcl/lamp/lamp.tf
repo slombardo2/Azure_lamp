@@ -212,7 +212,7 @@ resource "azurerm_virtual_machine" "web" {
    managed_disk_id = "${azurerm_managed_disk.external.*.id}"
    create_option   = "Attach"
    lun             = 1
-   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
+#   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
  }
 
   os_profile {
@@ -267,7 +267,7 @@ resource "azurerm_virtual_machine" "web-alternative" {
    managed_disk_id = "${azurerm_managed_disk.external.*.id}"
    create_option   = "Attach"
    lun             = 1
-   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
+#   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
  }
   
   os_profile {
