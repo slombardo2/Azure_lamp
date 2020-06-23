@@ -50,11 +50,6 @@ variable "vm_size" {
 variable "count" {
   default = "1"
 }
-  
-variable "attach_extra_disk" {
-  default = "false"
-  description = "Attach an additional disk to the instance."
-}
 
 variable "admin_user" {
   description = "Name of an administrative user to be created in virtual machine and SQL service in this deployment"
@@ -199,22 +194,6 @@ resource "azurerm_virtual_machine" "web" {
     create_option = "FromImage"
   }
   
-#  storage_data_disk {
-#   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-#   managed_disk_type = "Standard_LRS"
-#   create_option     = "Empty"
-#   lun               = 0
-#   disk_size_gb      = "1023"
-# }
-
-# storage_data_disk {
-#   name            = "${azurerm_managed_disk.external.*.name}"
-#   managed_disk_id = "${azurerm_managed_disk.external.*.id}"
-#   create_option   = "Attach"
-#   lun             = 1
-#   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
-# }
-
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
     admin_username = "${var.admin_user}"
@@ -254,22 +233,6 @@ resource "azurerm_virtual_machine" "web-alternative" {
     create_option = "FromImage"
   }
   
-#  storage_data_disk {
-#   name              = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-#   managed_disk_type = "Standard_LRS"
-#   create_option     = "Empty"
-#   lun               = 0
-#   disk_size_gb      = "1023"
-# }
-
-# storage_data_disk {
-#   name            = azurerm_managed_disk.external.*.name
-#   managed_disk_id = azurerm_managed_disk.external.*.id
-#   create_option   = "Attach"
-#   lun             = 1
-#   disk_size_gb    = "${azurerm_managed_disk.external.*.disk_size_gb}"
-# }
-  
   os_profile {
     computer_name  = "${var.name_prefix}-${random_id.default.hex}-web"
     admin_username = "${var.admin_user}"
@@ -279,22 +242,6 @@ resource "azurerm_virtual_machine" "web-alternative" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
-}
-  
-resource "azurerm_managed_disk" "external" {
-  name                 = "${var.name_prefix}-${random_id.default.hex}-web-data-disk1"
-  location             = "${var.azure_region}"
-  resource_group_name  = "${azurerm_resource_group.default.name}"
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = "10"
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "external" {
-  managed_disk_id    = "${azurerm_managed_disk.external.id}"
-  virtual_machine_id = "${azurerm_virtual_machine.web-alternative.id}"
-  lun                = "0"
-  caching            = "ReadWrite"
 }
 
 #########################################################
